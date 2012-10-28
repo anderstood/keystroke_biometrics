@@ -11,5 +11,5 @@ data = []
 for i in range(3):
 	data.append(getInput.getinput())
 
-pickleName = username + '.pickle'
+pickleName = './users/' + username + '.pickle'
 pickle.dump(data,file(pickleName,'w'))

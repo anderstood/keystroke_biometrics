@@ -8,7 +8,7 @@ import getInput
 def main():
 	data2check = np.matrix(getInput.getinput())
 
-	list_of_files = [file for file in os.listdir("./") if file.lower().endswith(".pickle")]
+	list_of_files = [file for file in os.listdir("./users/") if file.lower().endswith(".pickle")]
 	user = []
 	userData = []
 	userDiff = [list([]) for _ in xrange(len(list_of_files))]
@@ -16,7 +16,7 @@ def main():
 	for file in list_of_files:
 		username = file[:-7]
 		user.append(username)
-		data = pickle.load(open(file,'r'))
+		data = pickle.load(open('./users/' + file,'r'))
 		userData.append(np.matrix(data))
 
 	for userI in range(len(user)):
@@ -25,11 +25,16 @@ def main():
 			#print np.sum(np.power(abs(test-data2check),2))
 			#print test
 			userDiff[userI].append(np.sum(np.power(abs(test-data2check),2)))
-	print user
-	print userDiff
 
 	userDiffSum = []
 	for userI in range(len(user)):
 		userDiffSum.append(np.sum(userDiff[userI]))
+	userDiffSumNorm = userDiffSum/min(userDiffSum)
+
+	import heapq
+	top3 = heapq.nsmallest(3,userDiffSumNorm)
+	for i in range(3):
+		pos = list(userDiffSumNorm).index(top3[i])
+		print user[pos] + '\t' + str(1/userDiffSumNorm[pos])
 
 	print "__________________\nhey, i know who you are! you're " + user[np.argmin(userDiffSum)] + " ;)"
