@@ -34,6 +34,7 @@ def main():
 	userDiffSumNormSorted = userDiffSumNorm[:]
 	userDiffSumNormSorted.sort()
 	top3 = userDiffSumNormSorted[:3]
+
 	for i in range(3):
 		pos = list(userDiffSumNorm).index(top3[i])
 		print user[pos] + '\t' + str(1/userDiffSumNorm[pos])
