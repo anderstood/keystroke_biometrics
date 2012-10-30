@@ -31,8 +31,9 @@ def main():
 		userDiffSum.append(np.sum(userDiff[userI]))
 	userDiffSumNorm = userDiffSum/min(userDiffSum)
 
-	import heapq
-	top3 = heapq.nsmallest(3,userDiffSumNorm)
+	userDiffSumNormSorted = userDiffSumNorm[:]
+	userDiffSumNormSorted.sort()
+	top3 = userDiffSumNormSorted[:3]
 	for i in range(3):
 		pos = list(userDiffSumNorm).index(top3[i])
 		print user[pos] + '\t' + str(1/userDiffSumNorm[pos])
